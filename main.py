@@ -2,6 +2,8 @@ import os
 from langchain_ollama import ChatOllama
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
 from dotenv import load_dotenv
+
+from ocr_document import get_extracted_text
 load_dotenv()
 
 
@@ -86,6 +88,7 @@ def get_meta_field_description_and_alias():
 
 
 def main():
+    get_extracted_text()
     get_meta_field_description_and_alias()
 
 
