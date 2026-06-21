@@ -3,6 +3,7 @@ from langchain_ollama import ChatOllama
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
 from dotenv import load_dotenv
 
+from extract_metadata import get_metadata_values
 from ocr_document import get_extracted_text
 load_dotenv()
 
@@ -81,15 +82,23 @@ def get_meta_field_description_and_alias():
     ]
 
     ai_msg = llm.invoke(meta_field_generation_messages)
-    answer = ai_msg.content.strip()
-    print(f"\nAI Response: {answer}\n\n")
+    meta_field_description = ai_msg.content.strip()
+    print(f"\nAI Response: {meta_field_description}\n\n")
 
-    return meta_fields
+    return meta_field_description
 
 
 def main():
-    get_extracted_text()
-    get_meta_field_description_and_alias()
+    # Step 1: Extract raw text
+    extracted_text = get_extracted_text()
+
+    # Step 2: Generate metadata field descriptions and aliases
+    meta_field_description = get_meta_field_description_and_alias()
+
+    #Step 3: Extract metadata from the document using the generated descriptions and aliases
+    extracted_metadata = get_metadata_values(extracted_text, meta_field_description)
+
+    print(f"Extracted Metadata: {extracted_metadata}")
 
 
 if __name__ == "__main__":
