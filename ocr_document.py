@@ -51,7 +51,7 @@ class PDFTextExtractor:
     
 
 def get_extracted_text():
-    pdf_file_path = "/home/nasimul/Documents/Personal/AI worksop/TASK metadata extractor/metadata_extractor/docs/invoice-0-4.pdf"
+    pdf_file_path = "/home/nasimul/Documents/Personal/AI worksop/TASK metadata extractor/metadata_extractor/docs/sample-pdf-invoice.pdf"
     extractor = PDFTextExtractor()
     text = extractor.extract_text(pdf_file_path)
 
