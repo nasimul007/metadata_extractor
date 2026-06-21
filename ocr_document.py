@@ -1,24 +1,49 @@
+import os
 import fitz  # pymupdf
 import pytesseract
 from PIL import Image
 from pdf2image import convert_from_path
 
 
-class PDFTextExtractor:
-    def __init__(self):
-        pass
+class DocumentTextExtractor:
 
-    def extract_text(self, pdf_path):
-        text = self._extract_digital_text(pdf_path)
+    IMAGE_EXTENSIONS = {
+        ".jpg",
+        ".jpeg",
+        ".png",
+        ".bmp",
+        ".tiff",
+        ".tif",
+        ".webp"
+    }
 
-        # If enough text found, return it
+    def extract_text(self, file_path):
+
+        extension = os.path.splitext(file_path)[1].lower()
+
+        if extension == ".pdf":
+            return self._extract_pdf_text(file_path)
+
+        elif extension in self.IMAGE_EXTENSIONS:
+            return self._extract_image_text(file_path)
+
+        raise ValueError(
+            f"Unsupported file type: {extension}"
+        )
+
+    def _extract_pdf_text(self, pdf_path):
+
+        text = self._extract_digital_pdf_text(pdf_path)
+
+        # If text exists, return it
         if len(text.strip()) > 100:
             return text
 
-        print("Scanned PDF detected. Running OCR...")
-        return self._extract_ocr_text(pdf_path)
+        # Otherwise OCR
+        return self._extract_pdf_ocr_text(pdf_path)
 
-    def _extract_digital_text(self, pdf_path):
+    def _extract_digital_pdf_text(self, pdf_path):
+
         text = ""
 
         doc = fitz.open(pdf_path)
@@ -30,7 +55,8 @@ class PDFTextExtractor:
 
         return text
 
-    def _extract_ocr_text(self, pdf_path):
+    def _extract_pdf_ocr_text(self, pdf_path):
+
         text = ""
 
         images = convert_from_path(
@@ -48,11 +74,23 @@ class PDFTextExtractor:
             text += page_text
 
         return text
+
+    def _extract_image_text(self, image_path):
+
+        image = Image.open(image_path)
+
+        text = pytesseract.image_to_string(
+            image,
+            lang="eng",
+            config="--oem 3 --psm 6"
+        )
+
+        return text
     
 
 def get_extracted_text():
-    pdf_file_path = "/home/nasimul/Documents/Personal/AI worksop/TASK metadata extractor/metadata_extractor/docs/sample-pdf-invoice.pdf"
-    extractor = PDFTextExtractor()
-    text = extractor.extract_text(pdf_file_path)
+    file_path = "/home/nasimul/Documents/Personal/AI worksop/TASK metadata extractor/metadata_extractor/docs/photo_2026-06-21_16-32-58.jpg"
+    extractor = DocumentTextExtractor()
+    text = extractor.extract_text(file_path)
 
     return text
