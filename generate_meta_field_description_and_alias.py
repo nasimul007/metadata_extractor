@@ -65,15 +65,7 @@ Expected output format:
 """
 
 
-def get_meta_field_description_and_alias():
-    # meta fields will be fetched from DB
-    meta_fields = [
-        {"title": "inv_no", "displayname": "Invoice Number"},
-        {"title": "inv_to", "displayname": "Invoiced To"},
-        {"title": "inv_amnt", "displayname": "Invoice Amount"},
-        {"title": "inv_date", "displayname": "Invoice Date"}
-    ]
-
+def get_meta_field_description_and_alias(meta_fields):
     meta_field_generation_messages = [
         SystemMessage(content=meta_field_generation_system_message),
         HumanMessage(content=meta_field_generation_human_message.replace("{{ meta_fields }}", str(meta_fields)))

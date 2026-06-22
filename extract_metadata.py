@@ -3,6 +3,9 @@ from langchain_ollama import ChatOllama
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
 from dotenv import load_dotenv
 
+from generate_meta_field_description_and_alias import get_meta_field_description_and_alias
+from ocr_document import get_extracted_text
+
 
 load_dotenv()
 
@@ -82,6 +85,15 @@ Extract the metadata values and return JSON only.
 """
 
 
+# meta fields will be fetched from DB
+meta_fields = [
+    {"title": "inv_no", "displayname": "Invoice Number"},
+    {"title": "inv_to", "displayname": "Invoiced To"},
+    {"title": "inv_amnt", "displayname": "Invoice Amount"},
+    {"title": "inv_date", "displayname": "Invoice Date"}
+]
+
+
 def get_metadata_values(extracted_text, meta_field_description):
     meta_field_generation_messages = [
         SystemMessage(content=metadata_extraction_system_message),
@@ -94,3 +106,19 @@ def get_metadata_values(extracted_text, meta_field_description):
     extracted_metadata = ai_msg.content.strip()
 
     return extracted_metadata
+
+
+def extract_metadata_from_digital_scanned_doc():
+  # Step 1: Extract raw text
+  extracted_text = get_extracted_text()
+  # print(f"extracted_text: {extracted_text}")
+
+  # Step 2: Generate metadata field descriptions and aliases
+  meta_field_description = get_meta_field_description_and_alias(meta_fields)
+
+  #Step 3: Extract metadata from the document using the generated descriptions and aliases
+  extracted_metadata = get_metadata_values(extracted_text, meta_field_description)
+
+
+  print(f"------------------Extracted Metadata using OCR + LLM----------------")
+  print(extracted_metadata)

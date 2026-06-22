@@ -1,18 +1,12 @@
-from extract_metadata import get_metadata_values
-from ocr_document import get_extracted_text
-from generate_meta_field_description_and_alias import get_meta_field_description_and_alias
+from extract_metadata import extract_metadata_from_digital_scanned_doc
+from extraction_using_llm import extract_metadata_using_vision_llm
 
 def main():
-    # Step 1: Extract raw text
-    extracted_text = get_extracted_text()
+    # extract metadata from digital/scanned documents using LLMs and OCR
+    extract_metadata_from_digital_scanned_doc()
 
-    # Step 2: Generate metadata field descriptions and aliases
-    meta_field_description = get_meta_field_description_and_alias()
-
-    #Step 3: Extract metadata from the document using the generated descriptions and aliases
-    extracted_metadata = get_metadata_values(extracted_text, meta_field_description)
-
-    print(f"Extracted Metadata: {extracted_metadata}")
+    # extract metadata from scanned + handwritten documents using VISION LLMs
+    extract_metadata_using_vision_llm()
 
 
 if __name__ == "__main__":
