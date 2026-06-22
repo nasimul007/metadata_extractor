@@ -81,6 +81,7 @@ def get_meta_field_description_and_alias():
 
     ai_msg = llm.invoke(meta_field_generation_messages)
     meta_field_description = ai_msg.content.strip()
-    print(f"\nAI Response: {meta_field_description}\n\n")
+    print("---------------Generated Meta Fields aliases and descriptions--------------------------")
+    print(f"\n{meta_field_description}\n\n")
 
     return meta_field_description

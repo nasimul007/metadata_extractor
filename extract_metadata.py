@@ -92,6 +92,5 @@ def get_metadata_values(extracted_text, meta_field_description):
 
     ai_msg = llm.invoke(meta_field_generation_messages)
     extracted_metadata = ai_msg.content.strip()
-    print(f"\nAI Response: {extracted_metadata}\n\n")
 
     return extracted_metadata
