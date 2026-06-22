@@ -89,7 +89,7 @@ class DocumentTextExtractor:
     
 
 def get_extracted_text():
-    file_path = "/home/nasimul/Documents/Personal/AI worksop/TASK metadata extractor/metadata_extractor/docs/photo_2026-06-21_16-32-58.jpg"
+    file_path = "/home/nasimul/Documents/Personal/AI worksop/TASK metadata extractor/metadata_extractor/docs/photo_2026-06-22_08-50-29.jpg"
     extractor = DocumentTextExtractor()
     text = extractor.extract_text(file_path)
 
