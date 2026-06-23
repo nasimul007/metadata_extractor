@@ -116,10 +116,10 @@ meta_fields = [
 ]
 
 
-def extract_metadata_using_vision_llm():
+def extract_metadata_using_vision_llm(file_path):
     meta_field_description = get_meta_field_description_and_alias(meta_fields)
 
-    file_path = "/home/nasimul/Documents/Personal/AI worksop/TASK metadata extractor/metadata_extractor/docs/08252018154809.jpg"
+    # file_path = "/home/nasimul/Documents/Personal/AI worksop/TASK metadata extractor/metadata_extractor/docs/08252018154809.jpg"
 
     with open(file_path, "rb") as f:
         image_b64 = base64.b64encode(f.read()).decode()

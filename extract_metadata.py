@@ -108,9 +108,10 @@ def get_metadata_values(extracted_text, meta_field_description):
     return extracted_metadata
 
 
-def extract_metadata_from_digital_scanned_doc():
+def extract_metadata_from_digital_scanned_doc(file_path):
+  
   # Step 1: Extract raw text
-  extracted_text = get_extracted_text()
+  extracted_text = get_extracted_text(file_path)
   # print(f"extracted_text: {extracted_text}")
 
   # Step 2: Generate metadata field descriptions and aliases

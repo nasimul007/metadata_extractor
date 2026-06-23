@@ -1,12 +1,10 @@
-from extract_metadata import extract_metadata_from_digital_scanned_doc
-from extraction_using_llm import extract_metadata_using_vision_llm
+from classify_document_type_and_extract_data import DocumentTypeClassifier
+
 
 def main():
-    # extract metadata from digital/scanned documents using LLMs and OCR
-    extract_metadata_from_digital_scanned_doc()
-
-    # extract metadata from scanned + handwritten documents using VISION LLMs
-    extract_metadata_using_vision_llm()
+    file_path = "/home/nasimul/Documents/Personal/AI worksop/TASK metadata extractor/metadata_extractor/docs/08252018154809.jpg"
+    doc_classifier = DocumentTypeClassifier(file_path)
+    doc_classifier.check_document_type()
 
 
 if __name__ == "__main__":

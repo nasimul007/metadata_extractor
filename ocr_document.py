@@ -88,8 +88,8 @@ class DocumentTextExtractor:
         return text
     
 
-def get_extracted_text():
-    file_path = "/home/nasimul/Documents/Personal/AI worksop/TASK metadata extractor/metadata_extractor/docs/photo_2026-06-22_08-50-29.jpg"
+def get_extracted_text(file_path):
+    # file_path = "/home/nasimul/Documents/Personal/AI worksop/TASK metadata extractor/metadata_extractor/docs/photo_2026-06-22_08-50-29.jpg"
     extractor = DocumentTextExtractor()
     text = extractor.extract_text(file_path)
 
